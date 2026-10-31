@@ -44,7 +44,7 @@ export function Bio() {
 
           <Link
             href="/about"
-            className="inline-flex border-b-2 border-accent pb-1 text-sm font-semibold transition-colors hover:text-accent"
+            className="inline-flex border-b-2 border-accent pb-1 text-sm font-medium transition-colors hover:text-accent"
           >
             Selengkapnya tentang saya
           </Link>

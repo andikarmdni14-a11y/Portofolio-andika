@@ -30,7 +30,7 @@ export function SplashScreen() {
 
     let cancelled = false;
     (async () => {
-      await animate(count, 100, { duration: 1.4, ease: [0.65, 0, 0.35, 1] });
+      await animate(count, 100, { duration: 1.0, ease: [0.65, 0, 0.35, 1] });
       if (cancelled || !base.current || !accent.current) return;
       try {
         sessionStorage.setItem(SEEN_KEY, "1");

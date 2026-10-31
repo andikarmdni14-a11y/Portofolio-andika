@@ -139,7 +139,10 @@ create policy "Admin menghapus pesan"
 -- Authentication → Users → Add user, lalu ganti email di bawah dan jalankan:
 --
 -- insert into public.admins (user_id)
--- select id from auth.users where email = 'andikarmdni22@gmail.com';
+-- select id from auth.users where email = 'Andikarmdni22@gmail.com';
 --
 -- Disarankan menonaktifkan pendaftaran publik: Authentication → Sign In / Providers
 -- → matikan "Allow new users to sign up".
+--
+-- ---------- 6. Data awal ----------
+-- Lanjutkan dengan supabase/seed.sql (studi kasus FitoMotor).

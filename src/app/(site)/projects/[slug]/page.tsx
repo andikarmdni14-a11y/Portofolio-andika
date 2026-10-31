@@ -73,7 +73,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex rounded-none bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-foreground hover:text-background"
+                  className="inline-flex rounded-none bg-accent px-7 py-3.5 text-sm font-medium text-accent-foreground transition-colors hover:bg-foreground hover:text-background"
                 >
                   Live Demo ↗
                 </a>
@@ -85,7 +85,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                   href={project.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex rounded-none border border-foreground/40 px-7 py-3.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
+                  className="inline-flex rounded-none border border-foreground/40 px-7 py-3.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
                 >
                   Repository ↗
                 </a>

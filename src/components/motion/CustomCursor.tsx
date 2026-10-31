@@ -59,7 +59,7 @@ export function CustomCursor() {
         style={{ x: ringX, y: ringY }}
       >
         <motion.div
-          className="absolute left-0 top-0 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-accent text-xs font-semibold text-accent-foreground"
+          className="absolute left-0 top-0 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-accent text-xs font-medium text-accent-foreground"
           animate={{
             width: size,
             height: size,

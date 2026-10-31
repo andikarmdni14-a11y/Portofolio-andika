@@ -110,7 +110,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="rounded-none bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-foreground hover:text-background disabled:cursor-not-allowed disabled:opacity-60"
+        className="rounded-none bg-accent px-7 py-3.5 text-sm font-medium text-accent-foreground transition-colors hover:bg-foreground hover:text-background disabled:cursor-not-allowed disabled:opacity-60"
       >
         {pending ? "Mengirim…" : "Kirim Pesan"}
       </button>

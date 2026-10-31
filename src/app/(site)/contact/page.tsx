@@ -18,6 +18,9 @@ function Placeholder({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** "https://github.com/x" → "github.com/x" (lebih ringkas di layar sempit). */
+const displayUrl = (url: string) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+
 function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a
@@ -46,7 +49,7 @@ export default function ContactPage() {
     {
       label: "GitHub",
       value: socials.github ? (
-        <ExternalLink href={socials.github}>{socials.github}</ExternalLink>
+        <ExternalLink href={socials.github}>{displayUrl(socials.github)}</ExternalLink>
       ) : (
         <Placeholder>GitHub menyusul</Placeholder>
       ),
@@ -54,7 +57,7 @@ export default function ContactPage() {
     {
       label: "Instagram",
       value: socials.instagram ? (
-        <ExternalLink href={socials.instagram}>{socials.instagram}</ExternalLink>
+        <ExternalLink href={socials.instagram}>{displayUrl(socials.instagram)}</ExternalLink>
       ) : (
         <Placeholder>Instagram menyusul</Placeholder>
       ),
@@ -71,7 +74,7 @@ export default function ContactPage() {
         <div className="container">
           <RevealText
             as="h1"
-            lines={["Mari Berkolaborasi", "dan Bangun Solusi", "Digital Anda."]}
+            lines={["Mari Berkolaborasi", "dan Bangun Solusi", "Digital Anda"]}
             className="font-display text-[clamp(2.75rem,7vw,6.5rem)] uppercase leading-[0.9]"
           />
           <p className="mt-8 max-w-2xl text-xl leading-relaxed">
@@ -92,7 +95,7 @@ export default function ContactPage() {
                   href={whatsapp.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex rounded-none bg-accent px-7 py-3.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-foreground hover:text-background"
+                  className="inline-flex rounded-none bg-accent px-7 py-3.5 text-sm font-medium text-accent-foreground transition-colors hover:bg-foreground hover:text-background"
                 >
                   Chat via WhatsApp
                 </a>
@@ -106,7 +109,7 @@ export default function ContactPage() {
                   className="flex items-baseline justify-between gap-6 border-t border-border py-4 last:border-b"
                 >
                   <span className="text-sm text-muted">{row.label}</span>
-                  <span className="text-right">{row.value}</span>
+                  <span className="min-w-0 text-right [overflow-wrap:anywhere]">{row.value}</span>
                 </li>
               ))}
             </ul>

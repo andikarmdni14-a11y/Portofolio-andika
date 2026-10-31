@@ -1,4 +1,5 @@
 export type NavItem = { label: string; href: string };
+export type StatItem = { value: string; label: string };
 
 export const siteConfig = {
   name: "Andika Ramadhani",
@@ -10,13 +11,19 @@ export const siteConfig = {
     display: "+62 897-9714-321",
     url: "https://wa.me/628979714321",
   },
-  // PLACEHOLDER: URL belum diberikan — diisi setelah proyek selesai.
   socials: {
-    github: null as string | null,
-    instagram: null as string | null,
+    github: "https://github.com/andikarmdni14-a11y" as string | null,
+    instagram: null as string | null, // PLACEHOLDER: URL belum diberikan
   },
   // PLACEHOLDER: lokasi belum diberikan.
   location: null as string | null,
+  // Statistik / social proof (Home). Tambahkan item baru di sini bila data tersedia,
+  // format { value: "…", label: "…" }. Isi hanya dengan angka riil, bukan perkiraan.
+  stats: [
+    { value: "1+", label: "Tahun pengalaman" },
+    { value: "1+", label: "Proyek selesai" },
+    { value: "1", label: "Klien" },
+  ] satisfies StatItem[],
   nav: [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },

@@ -53,20 +53,20 @@ export type TimelineItem = {
   description?: string;
 };
 
-// Urutan sementara: periode belum diberikan, sehingga urutan kronologis
+// Urutan sementara: periode D3 belum diberikan, sehingga urutan kronologis
 // belum dapat dipastikan. Urutkan ulang setelah periode diisi.
 export const timeline: TimelineItem[] = [
   {
     category: "Pendidikan",
-    title: "Diploma 3 (D3)",
-    organization: null, // PLACEHOLDER: institusi & jurusan belum diberikan
-    period: null, // PLACEHOLDER
+    title: "Diploma 3 (D3) Sistem Informasi",
+    organization: "Universitas Esa Unggul",
+    period: null, // PLACEHOLDER: periode belum diberikan
   },
   {
     category: "Pengalaman",
     title: "Warehouse & Inventory Management",
-    organization: null, // PLACEHOLDER
-    period: null, // PLACEHOLDER
+    organization: "The Dens Living",
+    period: "1 tahun",
     description:
       "Pekerjaan gudang yang membentuk logika kuat dalam menyusun database e-commerce dan dashboard.",
   },

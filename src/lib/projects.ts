@@ -59,7 +59,8 @@ function toProject(row: ProjectRow): Project {
 
 // Data cadangan dari PRD (studi kasus FitoMotor). Dipakai HANYA bila Supabase
 // belum dikonfigurasi, error, atau belum berisi proyek terpublikasi.
-// Hapus setelah data proyek diisi lewat Admin.
+// Data produksi FitoMotor berasal dari supabase/seed.sql (isi identik) — jalankan
+// seed tersebut agar studi kasus tetap tampil setelah proyek lain ditambahkan.
 const fallbackProjects: Project[] = [
   {
     slug: "fitomotor",

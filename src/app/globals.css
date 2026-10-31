@@ -8,7 +8,9 @@
     --color-background: 249 249 249; /* #F9F9F9 */
     --color-surface: 243 244 246; /* #F3F4F6 */
     --color-foreground: 10 10 10; /* #0A0A0A */
-    --color-muted: 107 114 128; /* #6B7280 — PLACEHOLDER: PRD tidak menetapkan teks sekunder light */
+    /* Teks sekunder light: #6B7280. PRD hanya menetapkan #9CA3AF (konteks gelap);
+       #9CA3AF di atas #F9F9F9 hanya ±2,4:1 (gagal WCAG AA), #6B7280 ±4,6:1 (lulus). */
+    --color-muted: 107 114 128;
     --color-border: 229 231 235; /* #E5E7EB */
     color-scheme: light;
   }
@@ -53,6 +55,15 @@ html.theme-transition *::after {
     border-color 300ms ease,
     fill 300ms ease,
     stroke 300ms ease !important;
+}
+
+/* Ikon sakelar tema tetap beranimasi selama transisi warna di atas berlaku */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-transition .theme-icon {
+    transition:
+      transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 300ms ease !important;
+  }
 }
 
 /* Hormati preferensi pengguna: kurangi gerakan */
