@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light Mode (opsi alternatif) */
+  :root {
+    --color-background: 249 249 249; /* #F9F9F9 */
+    --color-surface: 243 244 246; /* #F3F4F6 */
+    --color-foreground: 10 10 10; /* #0A0A0A */
+    --color-muted: 107 114 128; /* #6B7280 — PLACEHOLDER: PRD tidak menetapkan teks sekunder light */
+    --color-border: 229 231 235; /* #E5E7EB */
+    color-scheme: light;
+  }
+
+  /* Dark Mode (default) — class "dark" dipasang di <html> pada layout */
+  .dark {
+    --color-background: 10 10 10; /* #0A0A0A */
+    --color-surface: 17 17 17; /* #111111 */
+    --color-foreground: 255 255 255; /* #FFFFFF */
+    --color-muted: 156 163 175; /* #9CA3AF */
+    --color-border: 51 51 51; /* #333333 */
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+
+  ::selection {
+    background: #c62227;
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid #c62227;
+    outline-offset: 2px;
+  }
+}
+
+/* Transisi pergantian tema: hanya aktif sementara saat toggle ditekan */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease,
+    fill 300ms ease,
+    stroke 300ms ease !important;
+}
+
+/* Hormati preferensi pengguna: kurangi gerakan */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Foto profil diblend ke latar: tepi kiri/kanan/atas/bawah memudar ke transparan */
+.photo-blend {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 22%, #000 78%, transparent),
+    linear-gradient(to bottom, transparent, #000 10%, #000 55%, transparent 98%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 22%, #000 78%, transparent),
+    linear-gradient(to bottom, transparent, #000 10%, #000 55%, transparent 98%);
+  mask-composite: intersect;
+}
+
+/* Teks raksasa latar memudar ke bawah */
+.hero-title-fade {
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 92%);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 92%);
+}
+
+/* Kursor bawaan disembunyikan hanya saat CustomCursor aktif (mouse, tanpa reduced-motion) */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* Splash screen hanya terlihat saat <html data-splash> (diset skrip awal) */
+html:not([data-splash]) #splash {
+  display: none;
+}
