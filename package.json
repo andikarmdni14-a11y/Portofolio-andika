@@ -12,7 +12,6 @@
     "@react-three/fiber": "^9.8.2",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.118.0",
-    "dotenv": "^18.0.9",
     "framer-motion": "^14.8.0",
     "next": "^16.4.3",
     "react": "^19.3.1",
@@ -20,11 +19,13 @@
     "three": "^0.186.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@types/node": "^22",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/three": "^0.186.0",
     "autoprefixer": "^10.6.2",
+    "dotenv": "^18.0.9",
     "postcss": "^8.5.32",
     "tailwindcss": "^3.4.19",
     "typescript": "^5.9.3"
