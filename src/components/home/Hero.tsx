@@ -66,7 +66,9 @@ export function Hero() {
       </div>
 
       {/* Layer 3 — konten */}
-      <div className="container relative z-30 grid gap-10 pb-12 pt-[27rem] lg:min-h-[calc(100svh-4rem)] lg:grid-cols-12 lg:items-center lg:pb-16 lg:pt-20">
+      {/* Desktop: konten dimulai di bawah huruf PORTFOLIO (dasar huruf = ±21,9vw dari
+          atas hero) agar judul tidak menutupinya. Mobile tidak berubah (konten di bawah foto). */}
+      <div className="container relative z-30 grid gap-10 pb-12 pt-[27rem] lg:min-h-[calc(100svh-4rem)] lg:grid-cols-12 lg:items-end lg:pb-16 lg:pt-[calc(22vw+2.5rem)]">
         <div className="lg:col-span-5">
           <RevealText
             as="h1"
@@ -77,7 +79,7 @@ export function Hero() {
               "Modern Digital",
               "Experiences",
             ]}
-            className="font-display text-[clamp(2.5rem,5vw,5rem)] uppercase leading-[0.92]"
+            className="font-display text-[clamp(2.5rem,5vw,5rem)] uppercase leading-[0.92] lg:text-[length:clamp(2.25rem,min(3.6vw,calc((100svh_-_22vw_-_18rem)/5)),4.5rem)]"
           />
           <p className="mt-6 max-w-md text-muted">{siteConfig.description}</p>
           <div className="mt-8 flex flex-wrap gap-4">

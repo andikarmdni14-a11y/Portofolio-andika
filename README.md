@@ -96,6 +96,10 @@ Hubungkan repository GitHub ke Vercel, lalu isi Environment Variables sesuai `.e
 
 - **Fase 9.2 — Perbaikan**: log error Supabase kini menyebut penyebab & solusinya (`lib/supabase/describe-error.ts`) — sebelumnya mencetak `""` karena supabase-js mengisi `code` dengan string kosong saat jaringan gagal. Kegagalan memuat sertifikat memakai `console.warn` (situs tetap jalan). `schema.sql` kini aman dijalankan ulang (`drop policy if exists`).
 
+- **Fase 9.3 — Posisi judul hero (desktop ≥1024 px)**: blok judul, sub-judul, dan CTA kini dimulai di bawah huruf PORTFOLIO (`lg:pt-[calc(22vw+2.5rem)]`, `lg:items-end`) sehingga tidak menutupinya. Ukuran H1 desktop adaptif terhadap tinggi layar (`clamp(36px, min(3.6vw, (100svh − 22vw − 18rem)/5), 72px)`) agar CTA tetap terlihat tanpa scroll. Diuji di 1024×768 s.d. 2560×1440. Mobile tidak berubah.
+
+- **Fase 9.4 — Perbaikan build Vercel**: `tsconfig.json` mengecualikan `e2e/`, `tests/`, dan `playwright.config.ts` dari pemeriksaan tipe `next build` (sebelumnya gagal: `Cannot find module '@playwright/test'`).
+
 ## Data yang masih dibutuhkan
 
 Kode sudah siap menampilkan data berikut; selama kosong, situs menampilkan placeholder "menyusul".
