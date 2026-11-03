@@ -1,6 +1,6 @@
 -- =====================================================================
 -- Skema Supabase — Website Portofolio High-Impact (Fase 1)
--- Jalankan sekali di Supabase Dashboard → SQL Editor.
+-- Jalankan di Supabase Dashboard → SQL Editor. Aman dijalankan berulang (idempoten).
 -- Cakupan: tabel projects, contacts, admins + Row Level Security.
 -- =====================================================================
 
@@ -71,27 +71,32 @@ alter table public.projects enable row level security;
 grant select on public.projects to anon;
 grant select, insert, update, delete on public.projects to authenticated;
 
+drop policy if exists "Publik membaca proyek terpublikasi" on public.projects;
 create policy "Publik membaca proyek terpublikasi"
   on public.projects for select
   to anon, authenticated
   using (is_published = true);
 
+drop policy if exists "Admin membaca semua proyek" on public.projects;
 create policy "Admin membaca semua proyek"
   on public.projects for select
   to authenticated
   using ((select public.is_admin()));
 
+drop policy if exists "Admin menambah proyek" on public.projects;
 create policy "Admin menambah proyek"
   on public.projects for insert
   to authenticated
   with check ((select public.is_admin()));
 
+drop policy if exists "Admin mengubah proyek" on public.projects;
 create policy "Admin mengubah proyek"
   on public.projects for update
   to authenticated
   using ((select public.is_admin()))
   with check ((select public.is_admin()));
 
+drop policy if exists "Admin menghapus proyek" on public.projects;
 create policy "Admin menghapus proyek"
   on public.projects for delete
   to authenticated
@@ -114,22 +119,26 @@ grant select, insert, update, delete on public.contacts to authenticated;
 
 -- Pengunjung hanya boleh MENGIRIM pesan (tidak bisa membaca/mengubah).
 -- Catatan: insert dari form jangan memakai .select() setelahnya.
+drop policy if exists "Publik mengirim pesan" on public.contacts;
 create policy "Publik mengirim pesan"
   on public.contacts for insert
   to anon, authenticated
   with check (is_read = false);
 
+drop policy if exists "Admin membaca pesan" on public.contacts;
 create policy "Admin membaca pesan"
   on public.contacts for select
   to authenticated
   using ((select public.is_admin()));
 
+drop policy if exists "Admin menandai pesan" on public.contacts;
 create policy "Admin menandai pesan"
   on public.contacts for update
   to authenticated
   using ((select public.is_admin()))
   with check ((select public.is_admin()));
 
+drop policy if exists "Admin menghapus pesan" on public.contacts;
 create policy "Admin menghapus pesan"
   on public.contacts for delete
   to authenticated
@@ -139,7 +148,7 @@ create policy "Admin menghapus pesan"
 -- Authentication → Users → Add user, lalu ganti email di bawah dan jalankan:
 --
 -- insert into public.admins (user_id)
--- select id from auth.users where email = 'Andikarmdni22@gmail.com';
+-- select id from auth.users where email = 'EMAIL_ADMIN_ANDA';
 --
 -- Disarankan menonaktifkan pendaftaran publik: Authentication → Sign In / Providers
 -- → matikan "Allow new users to sign up".

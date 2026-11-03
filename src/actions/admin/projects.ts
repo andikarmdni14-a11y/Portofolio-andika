@@ -8,6 +8,7 @@ import {
   type ProjectFormValues,
 } from "@/lib/admin/project-form";
 import { getAdminContext } from "@/lib/supabase/admin-auth";
+import { describeSupabaseError } from "@/lib/supabase/describe-error";
 
 export type ProjectFormState = {
   message?: string;
@@ -46,7 +47,7 @@ export async function saveProject(
     if (error.code === "23505") {
       return { values, errors: { slug: "Slug sudah dipakai proyek lain." }, message: "Slug sudah dipakai." };
     }
-    console.error("[admin] gagal menyimpan proyek:", error.code ?? error.message);
+    console.error("[admin] gagal menyimpan proyek:", describeSupabaseError(error, undefined, "projects"));
     return { values, message: "Gagal menyimpan proyek. Coba lagi." };
   }
 
@@ -64,7 +65,7 @@ export async function deleteProject(formData: FormData) {
 
   const { error } = await ctx.supabase.from("projects").delete().eq("id", id);
   if (error) {
-    console.error("[admin] gagal menghapus proyek:", error.code ?? error.message);
+    console.error("[admin] gagal menghapus proyek:", describeSupabaseError(error, undefined, "projects"));
     redirect("/admin/projects?status=error");
   }
 

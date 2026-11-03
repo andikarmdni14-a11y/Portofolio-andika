@@ -3,6 +3,8 @@ import { Magnetic } from "@/components/motion/Magnetic";
 import { Reveal } from "@/components/motion/Reveal";
 import { RevealText } from "@/components/motion/RevealText";
 import { ServiceList } from "@/components/services/ServiceList";
+import { TermsAccordion } from "@/components/services/TermsAccordion";
+import { TierScroller } from "@/components/services/TierScroller";
 import {
   addOns,
   closingCta,
@@ -80,11 +82,14 @@ function SectionHeading({
   );
 }
 
-function TierGrid({ tiers }: { tiers: PackageTier[] }) {
+function TierGrid({ tiers, label }: { tiers: PackageTier[]; label: string }) {
   return (
-    <ul className="grid gap-4 lg:grid-cols-3">
+    <TierScroller label={label} count={tiers.length}>
       {tiers.map((tier, index) => (
-        <li key={tier.name} className="flex">
+        <li
+          key={tier.name}
+          className="flex w-[85%] shrink-0 snap-start md:w-[calc(50%-0.5rem)] lg:w-auto"
+        >
           <Reveal
             delay={index * 0.08}
             className={`flex w-full flex-col border p-6 md:p-8 ${
@@ -123,7 +128,7 @@ function TierGrid({ tiers }: { tiers: PackageTier[] }) {
           </Reveal>
         </li>
       ))}
-    </ul>
+    </TierScroller>
   );
 }
 
@@ -199,7 +204,7 @@ export default function ServicesPage() {
             lines={["Website", "Landing Page"]}
             description={landingPage.description}
           />
-          <TierGrid tiers={landingPage.tiers} />
+          <TierGrid tiers={landingPage.tiers} label="Paket Landing Page" />
         </div>
       </section>
 
@@ -213,7 +218,7 @@ export default function ServicesPage() {
             lines={["Company Profile", "& Web Bisnis"]}
             description={companyProfile.description}
           />
-          <TierGrid tiers={companyProfile.tiers} />
+          <TierGrid tiers={companyProfile.tiers} label="Paket Company Profile" />
         </div>
       </section>
 
@@ -433,19 +438,10 @@ export default function ServicesPage() {
               className="font-display text-5xl uppercase leading-none md:text-6xl"
             />
           </div>
-          <ol className="grid gap-x-10 gap-y-8 md:grid-cols-2 lg:col-span-8">
-            {terms.map((term, index) => (
-              <li key={term.title} className="border-t border-border pt-5">
-                <p className="flex items-baseline gap-3">
-                  <span className="font-display text-2xl leading-none text-accent">
-                    {pad(index)}
-                  </span>
-                  <span className="font-medium">{term.title}</span>
-                </p>
-                <p className="mt-3 text-muted">{term.description}</p>
-              </li>
-            ))}
-          </ol>
+          <div className="lg:col-span-8">
+            <p className="mb-6 text-sm text-muted">Pilih poin untuk melihat rinciannya.</p>
+            <TermsAccordion terms={terms} />
+          </div>
         </div>
       </section>
 

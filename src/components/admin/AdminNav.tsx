@@ -7,6 +7,7 @@ export function AdminNav({ unread }: { unread: number }) {
   const pathname = usePathname();
   const items = [
     { href: "/admin/projects", label: "Proyek" },
+    { href: "/admin/certificates", label: "Sertifikat" },
     { href: "/admin/messages", label: unread > 0 ? `Pesan (${unread})` : "Pesan" },
   ];
 

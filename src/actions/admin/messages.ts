@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getAdminContext } from "@/lib/supabase/admin-auth";
+import { describeSupabaseError } from "@/lib/supabase/describe-error";
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -19,7 +20,7 @@ export async function setMessageRead(formData: FormData) {
 
   const supabase = await adminClientOrRedirect();
   const { error } = await supabase.from("contacts").update({ is_read: read }).eq("id", id);
-  if (error) console.error("[admin] gagal memperbarui pesan:", error.code ?? error.message);
+  if (error) console.error("[admin] gagal memperbarui pesan:", describeSupabaseError(error, undefined, "contacts"));
   revalidatePath("/admin", "layout");
 }
 
@@ -29,6 +30,6 @@ export async function deleteMessage(formData: FormData) {
 
   const supabase = await adminClientOrRedirect();
   const { error } = await supabase.from("contacts").delete().eq("id", id);
-  if (error) console.error("[admin] gagal menghapus pesan:", error.code ?? error.message);
+  if (error) console.error("[admin] gagal menghapus pesan:", describeSupabaseError(error, undefined, "contacts"));
   revalidatePath("/admin", "layout");
 }

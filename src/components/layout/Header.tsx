@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { siteConfig } from "@/lib/site";
 import { ThemeToggle } from "./ThemeToggle";
@@ -10,6 +10,56 @@ import { ThemeToggle } from "./ThemeToggle";
 export function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const logoRef = useRef<HTMLAnchorElement>(null);
+
+  // Akses rahasia Admin: klik 3x cepat pada nama di header → /admin.
+  // Dipasang di fase capture milik window agar berjalan sebelum PageTransition
+  // (capture di document) — klik pertama tidak boleh langsung memicu transisi,
+  // karena layar penutupnya akan menelan klik ke-2 dan ke-3.
+  // Klik tunggal tetap ke Beranda (ditunda ±350 ms untuk menunggu klik lanjutan).
+  // Keamanan tetap di Supabase Auth + tabel admins; ini hanya jalan pintas.
+  useEffect(() => {
+    let clicks = 0;
+    let timer: number | undefined;
+
+    const onClick = (event: MouseEvent) => {
+      const logo = logoRef.current;
+      if (
+        !logo ||
+        !event.isTrusted || // klik sintetis (logo.click() di bawah) diteruskan normal
+        event.detail === 0 || // aktivasi keyboard (Enter) → navigasi biasa
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        !(event.target instanceof Node) ||
+        !logo.contains(event.target)
+      )
+        return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      window.clearTimeout(timer);
+      clicks += 1;
+
+      if (clicks >= 3) {
+        clicks = 0;
+        window.location.assign("/admin");
+        return;
+      }
+      timer = window.setTimeout(() => {
+        clicks = 0;
+        logo.click(); // jalankan navigasi normal (PageTransition + Link)
+      }, 350);
+    };
+
+    window.addEventListener("click", onClick, true);
+    return () => {
+      window.removeEventListener("click", onClick, true);
+      window.clearTimeout(timer);
+    };
+  }, []);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -18,8 +68,9 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
       <div className="container relative flex h-16 items-center justify-between">
         <Link
+          ref={logoRef}
           href="/"
-          className="font-display text-2xl uppercase tracking-wide"
+          className="select-none font-display text-2xl uppercase tracking-wide"
           onClick={() => setMenuOpen(false)}
         >
           {siteConfig.name}

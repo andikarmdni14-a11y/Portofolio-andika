@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SkillsBento } from "@/components/about/SkillsBento";
 import { Timeline } from "@/components/about/Timeline";
+import { CertificatesSection } from "@/components/certificates/CertificatesSection";
 import { RevealText } from "@/components/motion/RevealText";
 import { timeline } from "@/lib/about-data";
 
@@ -9,6 +10,10 @@ export const metadata: Metadata = {
   description:
     "Berpengalaman dalam merancang arsitektur perangkat lunak berbasis web dari hulu ke hilir, dengan fokus pada skalabilitas, efisiensi kode, dan pengalaman pengguna yang intuitif.",
 };
+
+// Sertifikat dari Supabase di-cache; diperbarui otomatis tiap 5 menit
+// (dan langsung setelah admin menyimpan, lewat revalidatePath).
+export const revalidate = 300;
 
 export default function AboutPage() {
   return (
@@ -62,6 +67,8 @@ export default function AboutPage() {
           <Timeline items={timeline} />
         </div>
       </section>
+
+      <CertificatesSection />
     </>
   );
 }

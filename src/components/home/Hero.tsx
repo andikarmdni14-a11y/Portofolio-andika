@@ -54,7 +54,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex h-[30rem] justify-center lg:inset-y-0 lg:h-auto">
         <div className="photo-blend relative h-full w-[min(100%,26rem)] lg:w-[min(48vw,38rem)]">
           <Image
-            src="/images/andika-hero-hd.webp"
+            src="/images/andika-hero-2.webp"
             alt="Foto profil Andika Ramadhani"
             fill
             preload

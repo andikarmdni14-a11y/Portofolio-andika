@@ -8,6 +8,7 @@ import {
   type ContactValues,
 } from "@/lib/contact";
 import { createPublicClient } from "@/lib/supabase/public";
+import { describeSupabaseError } from "@/lib/supabase/describe-error";
 
 export type ContactState = {
   status: "idle" | "success" | "error";
@@ -48,7 +49,7 @@ export async function submitContact(
   // Tanpa .select(): kebijakan RLS hanya mengizinkan INSERT bagi pengunjung.
   const { error } = await supabase.from("contacts").insert(values);
   if (error) {
-    console.error("[contact] gagal menyimpan pesan:", error.code ?? error.message);
+    console.error("[contact] gagal menyimpan pesan:", describeSupabaseError(error, undefined, "contacts"));
     return { status: "error", message: FAILURE_MESSAGE, values };
   }
 
